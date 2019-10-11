@@ -36,6 +36,7 @@ public class LastStoneWeight {
 		int[] stones = {2,7,4,1,8,1};
 		
 		System.out.println("result : "+solution.lastStoneWeight(stones));
+		System.out.println("result2 : "+solution.lastStoneWeight2(stones));
 	}
 	
 }
@@ -103,31 +104,38 @@ class Solution{
             return 0;	
 	}
 	public int lastStoneWeight2(int[] stones) {
-		
+		int[] tmpArr = stones;
+		int tmp =0;
 		int length = 0;
 		int x = 0,	y =0;
 		while(length>1) {
-			
+			x = 0;
+			y = 0;
 			for(int i=0; i<length;i++) {
-				if(x<=stones[i]) {
-					if(y<=stones[i]) {
-						x = y;
-						y = stones[i];
+				if(x<=tmpArr[i]) {
+					if(y<=tmpArr[i]) {
+						tmp = x;
+						tmpArr[length-2] = y;
+						tmpArr[length-1] = tmpArr[i];
+						tmpArr[i] = tmp;
 					}else {
-						x = stones[i];
+						tmp = x;
+						x = tmpArr[i];
+						tmpArr[i] = tmp;
 					}
 				}
 			}
-			
-			if(x != y) {
-				
+			if(x!=y) {
+				tmpArr[length-2] = y-x;
+				tmpArr=removeLength(tmpArr,1);
+				length -=1;
+			}else {
+				length -=2;
 			}
-			
-			
 			
 		}
 		
-		return 0;
+		return tmpArr[0];
 	}
 	public int[] removeLength(int[] arr,int n) {
 		int[] tmp  = new int[arr.length-n];
