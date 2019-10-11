@@ -7,20 +7,20 @@ public class TruckOnBridge {
 
 	public static void main(String[] args) {
 		
-		LinkedList<Integer> list = new LinkedList<Integer>();
-		
-		list.add(1);
-		list.add(2);
-		list.add(3);
-		
-		for(int i = 0; i < 3; i++) {
-			System.out.println(list.get(i).data);
-		}
-		
-		list.remove(2);
-		for(int i = 0; i < 2; i++) {
-			System.out.println(list.get(i).data);
-		}
+//		LinkedList<Integer> list = new LinkedList<Integer>();
+//		
+//		list.add(1);
+//		list.add(2);
+//		list.add(3);
+//		
+//		for(int i = 0; i < 3; i++) {
+//			System.out.println(list.get(i).data);
+//		}
+//		
+//		list.remove(2);
+//		for(int i = 0; i < 2; i++) {
+//			System.out.println(list.get(i).data);
+//		}
 	}
 	
 }

@@ -21,7 +21,8 @@ public class Solution {
 			System.out.println("----------------------");
 			System.out.println("1. 입력");
 			System.out.println("2. 다음");
-			System.out.println("3. 삭제");
+			System.out.println("3. 이전");
+			System.out.println("4. 삭제(미구현)");
 			System.out.println("----------------------");
 			input = scan.nextInt();
 			
@@ -30,27 +31,31 @@ public class Solution {
 					break;
 			case 2 : next();
 					break;
-			case 3 : remove();
+			case 3 : prev();
+					break;
+			case 4 : remove();
 					break;
 			}
 			list.print();
 		}
 	
 	}
-	public static void print() {
-		
-	}
+
 	public static void add() {
 		System.out.println("입력하세요");
 		int num = scan.nextInt();
+		System.out.println(num);
 		list.add(num);
 		
 	}
 	public static void next() {
 		list.next();
 	}
+	public static void prev() {
+		list.prev();
+	}
 	public static void remove() {
-		
+		list.remove();
 	}
 	
 }
@@ -87,23 +92,24 @@ class CircleList<T>{
 		if(head == null) {
 			head = node;
 			tail = node;
-			head.prev = tail;
-			head.next = tail;
-			tail.prev = head;
-			tail.next = head;
+			head.next =node;
+			head.prev = node;
+			tail.next = node;
+			tail.prev = node;
 		}else {
 			thisNode = head;
 
 			while(thisNode != tail) {
 				thisNode = thisNode.next;
 			}
-			
 			thisNode.next = node;
+			node.next = head;
 			node.prev = thisNode;
 			tail = node;
-			tail.next = head;
-			head.prev = tail;
+			head.prev = node;
 		}
+		
+		thisNode = head;
 	}
 	
 	public Node<T> next(){
@@ -114,11 +120,46 @@ class CircleList<T>{
 		}
 		return this.thisNode;
 	}
+	public Node<T> prev(){
+		if(this.thisNode ==null) {
+			this.thisNode = head;
+		}else {
+			this.thisNode = this.thisNode.prev;
+		}
+		return this.thisNode;
+	}
+	// 현재 node 삭제
+	public void remove() {
+		
+		if(head == tail) {
+			head = null;
+			tail = null;
+			this.thisNode = null;
+		}else {
+			if(this.thisNode == tail) {
+				tail.prev.next = head;
+				head.prev = tail.prev;
+				tail = tail.prev;
+				this.thisNode = tail;
+				
+			}else if(this.thisNode == head) {
+				tail.next = head.next;
+				head = head.next;
+				head.prev = tail;
+				this.thisNode = head;
+			}else {
+				thisNode.next.prev = thisNode.prev;
+				thisNode.prev.next = thisNode.next;
+				thisNode = thisNode.next;
+			}
+		}
+		
+	}
 	public void print(){
-		if(thisNode == head) {
+		if(thisNode == null) {
 			thisNode = head;
 		}
-		System.out.println("현재 데이터  : " +thisNode);
+		System.out.println("현재 데이터  : " +thisNode.data);
 	}
 	
 	
