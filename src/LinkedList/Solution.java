@@ -11,6 +11,7 @@ public class Solution {
 
 	static CircleList<Integer> list = new CircleList<Integer>();
 	static Scanner scan = new Scanner(System.in);
+	
 	public static void main(String[] args) {
 	
 	int input =0;
